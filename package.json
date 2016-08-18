@@ -1,0 +1,40 @@
+{
+  "name": "vue-nice-scrollbar",
+  "version": "0.0.1",
+  "description": "a nice scrollbar for vue.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/undrizzle/vue-nice-scrollbar.git"
+  },
+  "author": "undrizzle",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/undrizzle/vue-nice-scrollbar/issues"
+  },
+  "homepage": "https://github.com/undrizzle/vue-nice-scrollbar",
+  "main": "dist/vue-nice-scrollbar.js",
+  "scripts": {
+    "dev": "NODE_ENV=dev webpack-dev-server --inline --hot --host 0.0.0.0 --config webpack.config.js",
+    "build": "webpack"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.4.0",
+    "babel-core": "^6.13.2",
+    "babel-loader": "^6.2.4",
+    "babel-plugin-transform-runtime": "^6.12.0",
+    "babel-preset-es2015": "^6.13.2",
+    "babel-runtime": "^6.11.6",
+    "css-loader": "^0.23.1",
+    "less": "^2.7.1",
+    "less-loader": "^2.2.3",
+    "vue-hot-reload-api": "^2.0.6",
+    "vue-html-loader": "^1.2.3",
+    "vue-loader": "^8.5.3",
+    "vue-style-loader": "^1.0.0",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
+  },
+  "dependencies": {
+    "nice-bar": "^1.0.11"
+  }
+}

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>vue-nice-scrollbar</title>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <link rel="stylesheet" href="../dist/vue-nice-scrollbar.css" />
+        <script src="http://cdn.bootcss.com/vue/1.0.26/vue.js"></script>
+        <script src="../dist/vue-nice-scrollbar.js"></script>
+
+        <style>
+            .side {
+                background: #fafafa;
+                border: 1px solid #f0f0f0;
+                position: relative;
+                overflow: auto;
+                width: 200px;
+                height: 100%;
+            }
+            #demo {
+                height: 300px;
+            }
+            ul li {
+                list-style: none;
+            }
+            ul li a {
+                display: block;
+                padding: 8px 16px;
+            }
+            .avatar {
+                display: inline-block;
+                width: 40px;
+                height: 40px;
+                margin-right: 8px;
+                vertical-align: middle;
+                border-radius: 50%;
+            }
+            img {
+                border: 0;
+            }
+            .nickname {
+                display: inline-block;
+                vertical-align: middle;
+                font-weight: 200;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="side">
+            <div id="demo" v-nice-bar theme="light">
+                <ul>
+                    <li>
+                        <a target="_blank" href="https://github.com/undrizzle">
+                            <img class="avatar" src="https://avatars.githubusercontent.com/u/1?v=3">
+                            <span class="nickname">mojombo</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://github.com/undrizzle">
+                            <img class="avatar" src="https://avatars.githubusercontent.com/u/1?v=3">
+                            <span class="nickname">mojombo</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://github.com/undrizzle">
+                            <img class="avatar" src="https://avatars.githubusercontent.com/u/1?v=3">
+                            <span class="nickname">mojombo</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://github.com/undrizzle">
+                            <img class="avatar" src="https://avatars.githubusercontent.com/u/1?v=3">
+                            <span class="nickname">mojombo</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://github.com/undrizzle">
+                            <img class="avatar" src="https://avatars.githubusercontent.com/u/1?v=3">
+                            <span class="nickname">mojombo</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://github.com/undrizzle">
+                            <img class="avatar" src="https://avatars.githubusercontent.com/u/1?v=3">
+                            <span class="nickname">mojombo</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://github.com/undrizzle">
+                            <img class="avatar" src="https://avatars.githubusercontent.com/u/1?v=3">
+                            <span class="nickname">mojombo</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://github.com/undrizzle">
+                            <img class="avatar" src="https://avatars.githubusercontent.com/u/1?v=3">
+                            <span class="nickname">mojombo</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://github.com/undrizzle">
+                            <img class="avatar" src="https://avatars.githubusercontent.com/u/1?v=3">
+                            <span class="nickname">mojombo</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://github.com/undrizzle">
+                            <img class="avatar" src="https://avatars.githubusercontent.com/u/1?v=3">
+                            <span class="nickname">mojombo</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://github.com/undrizzle">
+                            <img class="avatar" src="https://avatars.githubusercontent.com/u/1?v=3">
+                            <span class="nickname">mojombo</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <script>
+            new Vue({
+                el: '#demo'
+            });
+        </script>
+    </body>
+</html>
