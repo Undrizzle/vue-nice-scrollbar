@@ -17,7 +17,7 @@ npm install vue-nice-scrollbar --save
 
 <script src="node_modules/vue-nice-scrollbar/dist/vue-nice-scrollbar.js"></script>
 
-<div id="#demo" v-nice-bar theme="light"></div>
+<div id="demo" v-nice-bar theme="light"></div>
 
 ```
 
