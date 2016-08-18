@@ -27,6 +27,11 @@ npm install vue-nice-scrollbar --save
   });
 ```
 
+### Theme
+
+  * light
+  * dark
+
 ### License
 
-  [MIT](LICENSE)
+  [MIT]
