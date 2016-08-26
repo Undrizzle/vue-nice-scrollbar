@@ -1,1 +1,50 @@
-.nice-bar-rail-y,.nice-bar-slider-y{position:absolute;top:0;right:0;width:6px}@keyframes fadeIn{from{opacity:0}to{opacity:1}}@keyframes fadeOut{from{opacity:1}to{opacity:0}}.nice-bar-rail-y{height:100%;z-index:100000}.nice-bar-slider-y{z-index:100001;opacity:0;animation-duration:1s;animation-fill-mode:both}.nice-bar-slider-y.fade-in{animation-name:fadeIn}.nice-bar-slider-y.fade-out{animation-name:fadeOut}.theme-light .nice-bar-slider-y{background:#aaa}.theme-dark .nice-bar-slider-y{background:#222}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+.nice-bar {
+  overflow: hidden;
+  position: relative;
+}
+.nice-bar-rail-y {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 6px;
+  height: 100%;
+  z-index: 100000;
+}
+.nice-bar-slider-y {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 6px;
+  z-index: 100001;
+  opacity: 0;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+.nice-bar-slider-y.fade-in {
+  animation-name: fadeIn;
+}
+.nice-bar-slider-y.fade-out {
+  animation-name: fadeOut;
+}
+.theme-light .nice-bar-slider-y {
+  background: #aaa;
+}
+.theme-dark .nice-bar-slider-y {
+  background: #222;
+}

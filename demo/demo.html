@@ -4,10 +4,9 @@
         <meta charset="UTF-8">
         <title>vue-nice-scrollbar</title>
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <link rel="stylesheet" href="../dist/vue-nice-scrollbar.css" />
+        <link href="../dist/vue-nice-scrollbar.css" rel="stylesheet">
         <script src="http://cdn.bootcss.com/vue/1.0.26/vue.js"></script>
         <script src="../dist/vue-nice-scrollbar.js"></script>
-
         <style>
             .side {
                 background: #fafafa;
@@ -17,7 +16,7 @@
                 width: 200px;
                 height: 100%;
             }
-            #demo {
+            #container-light {
                 height: 300px;
             }
             ul li {
@@ -47,7 +46,7 @@
     </head>
     <body>
         <div class="side">
-            <div id="demo" v-nice-bar theme="light">
+            <vue-nice-scrollbar ids="container-light" theme="light">
                 <ul>
                     <li>
                         <a target="_blank" href="https://github.com/undrizzle">
@@ -116,11 +115,12 @@
                         </a>
                     </li>
                 </ul>
-            </div>
+            </vue-nice-scrollbar>
         </div>
         <script>
             new Vue({
-                el: '#demo'
+                el: '.side',
+                components: {vueNiceScrollbar: VueNiceScrollbar}
             });
         </script>
     </body>

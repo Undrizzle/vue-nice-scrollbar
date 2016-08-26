@@ -6,7 +6,7 @@ var banner = `${pkg.name} v${pkg.version}\n${pkg.description}\n${pkg.homepage}\n
 
 module .exports = {
     entry: {
-        'vue-nice-scrollbar': path.join(__dirname, 'src/js/main.js')
+        'vue-nice-scrollbar': path.join(__dirname, 'src/vue-nice-scrollbar.vue')
     },
     output: {
         path: path.join(__dirname, 'dist'),
@@ -19,7 +19,7 @@ module .exports = {
         loaders: [
             {test: /\.js$/, loader: 'babel', exclude: /node_modules/},
             {test: /\.vue$/, loader: 'vue'},
-            {test: /\.less$/, loader: "css?sourceMap!postcss!less?sourceMap"}
+            {test: /\.less$/, loader: "css?sourceMap!less?sourceMap"}
         ]
     },
     postcss: [autoprefixer({browsers: ['last 2 versions', 'Android 2.3']})],
