@@ -1,6 +1,7 @@
 <template>
     <div id="{{ ids }}" class="nice-bar" v-bind:class="{ 'theme-light': theme === 'light' , 'theme-drak': theme === 'dark' }" v-el:scroll-container>
-        <div class="" v-el:scroll-content v-bind:style="{ 'margin-top': top * -1 + 'px', 'margin-left': left * -1 + 'px' }" @wheel="scroll">
+        <div class="" v-el:scroll-content v-bind:style="{ 'margin-top': top * -1 + 'px', 'margin-left': left * -1 + 'px' }" @wheel="scroll"
+            @touchstart="startDrag" @touchmove="onDrag" @touchend="stopDrag">
             <slot></slot>
         </div>
         <vertical-scrollbar v-if="ready" v-bind:content="{ height: scrollContentHeight }" v-bind:container="{ height: scrollContainerHeight }"
@@ -39,7 +40,6 @@
                 scrollContainerWidth: null,
                 scrollContentHeight: null,
                 scrollContentWidth: null,
-                sliderYHeight: null,
                 show: false,
                 dragging: false,
                 scrollY: null,
@@ -47,7 +47,8 @@
                 top: 0,
                 left: 0,
                 vMovement: 0,
-                hMovement: 0
+                hMovement: 0,
+                start: { y: 0, x: 0 }
             }
         },
 
@@ -73,11 +74,11 @@
                 this.ready = true
             },
 
-            showSliderY() {
+            showSlider() {
                 this.show = true
             },
 
-            hideSliderY() {
+            hideSlider() {
                 if (!this.dragging)
                     this.show = false
             },
@@ -127,15 +128,53 @@
 
                 if (nextX > rightEnd)
                     nextX = rightEnd
-                else if (next < 0)
+                else if (nextX < 0)
                     nextX = 0
 
-                this.left = next
+                this.left = nextX
             },
 
             moveTheScrollbar() {
                 this.vMovement = this.top / this.scrollContentHeight * 100
                 this.hMovement = this.left / this.scrollContentWidth * 100
+            },
+
+            startDrag(e) {
+                e.preventDefault()
+                e.stopPropagation()
+
+                e = e.changedTouches ? e.changedTouches[0] : e
+
+                this.dragging = true
+                this.show = true
+                this.start.y = e.pageY
+                this.start.x = e.pageX
+             },
+
+            onDrag(e) {
+                if (this.dragging) {
+                    e.preventDefault()
+                    e = e.changedTouches ? e.changedTouches[0] : e
+
+                    let yMovement = this.start.y - e.pageY
+                    let xMovement = this.start.x - e.pageX
+
+                    this.start.y = e.pageY
+                    this.start.x = e.pageX
+
+                    let nextY = this.top + yMovement
+                    let nextX = this.left + xMovement
+
+                    this.normalizeVertical(nextY)
+                    this.normalizeHorizontal(nextX)
+
+                    this.moveTheScrollbar()
+                }
+            },
+
+            stopDrag(e) {
+                this.dragging = false
+                this.show = false
             }
         },
 
@@ -145,13 +184,15 @@
             window.addEventListener('resize', this.calculateSize)
 
             if (this.ready) {
-                this.$els.scrollContainer.addEventListener('mouseenter', this.showSliderY)
-                this.$els.scrollContainer.addEventListener('mouseleave', this.hideSliderY)
+                this.$els.scrollContainer.addEventListener('mouseenter', this.showSlider)
+                this.$els.scrollContainer.addEventListener('mouseleave', this.hideSlider)
             }
         },
 
         beforeDestroy() {
             window.removeEventListener('resize', this.calculateSize)
+            this.$els.scrollContainer.removeEventListener('mouseenter', this.showSlider)
+            this.$els.scrollContainer.removeEventListener('mouseleave', this.hideSlider)
         }
     }
 </script>
