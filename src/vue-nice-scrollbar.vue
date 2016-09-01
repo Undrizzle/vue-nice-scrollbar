@@ -69,8 +69,6 @@
                 this.scrollContainerHeight = parseFloat(scrollContainerStyle.height)
                 this.scrollContainerWidth = parseFloat(scrollContainerStyle.width)
 
-                this.sliderYHeight = this.scrollContainerHeight * this.scrollContainerHeight / this.scrollContentHeight
-
                 this.ready = true
             },
 
@@ -175,6 +173,12 @@
             stopDrag(e) {
                 this.dragging = false
                 this.show = false
+            },
+
+            handleChangePosition(vScrollbar, orientation) {
+                let next = vScrollbar / 100 * (orientation == 'vertical' ? this.scrollContentHeight : this.scrollContentWidth)
+                if (orientation == 'vertical') this.normalizeVertical(next)
+                if (orientation == 'horizontal') this.normalizeHorizontal(next)
             }
         },
 
