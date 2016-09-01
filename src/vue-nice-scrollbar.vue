@@ -1,6 +1,6 @@
 <template>
     <div id="{{ ids }}" class="nice-bar" v-bind:class="{ 'theme-light': theme === 'light' , 'theme-drak': theme === 'dark' }" v-el:scroll-container>
-        <div class="" v-el:scroll-content v-bind:style="{ 'margin-top': top * -1 + 'px', 'margin-left': left * -1 + 'px' }" @wheel="scroll"
+        <div class="" v-el:scroll-content v-bind:style="{ 'margin-top': top * -1 + 'px', 'margin-left': left * -1 + 'px' }" @wheel="scroll" @keyup.down="upDown" @keyup.up="upDown"
             @touchstart="startDrag" @touchmove="onDrag" @touchend="stopDrag">
             <slot></slot>
         </div>
@@ -109,6 +109,22 @@
                     this.moveTheScrollbar()
                 }
             },
+
+            upDown(e) {
+                e.preventDefault()
+
+                let num = this.speed
+                this.scrollY = e.deltaY > 0 ? num : -(num)
+
+                let nextY = this.top + this.scrollY
+
+                let canScrollY = this.scrollContentHeight > this.scrollContainerHeight
+
+                if (canScrollY) {
+                    this.normalizeVertical(nextY)
+                    this.moveTheScrollbar()
+                }
+            }
 
             normalizeVertical(nextY) {
                 let lowerEnd = this.scrollContentHeight - this.scrollContainerHeight
