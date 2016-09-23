@@ -6,7 +6,6 @@ a nice scrollbar for vue.js
 
 ### Demo
 
-[Demo](http://forsigner.com/nice-bar)
 
 ### Install
 
