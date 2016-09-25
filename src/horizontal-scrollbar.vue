@@ -1,21 +1,24 @@
 <template>
-    <div class="vue-scrollbar__scrollbar-horizontal" v-if="width < 100" @click="jump" v-el:container>
-        <div class="scrollbar" v-bind:class="dragging || draggingFromParent ? '' : 'vue-scrollbar-transition'" v-el:scrollbar @touchstart="startDrag"
-            @mousedown="startDrag" v-bind:style="{ width: width + '%', left: scrolling.h + '%' }">
-        </div>
+    <div class="nice-bar-rail-x" @click="jump" v-el:scroll-rail-x></div>
+    <div class="nice-bar-slider-x" v-bind:style="{ 'width': width + '%', left: scrolling.h + '%' }" v-bind:class="{ 'fade-in': show, 'fade-out': !show }"
+         v-el:scroll-slider-x @touchstart="startDrag" @mousedown="startDrag">
     </div>
 </template>
 
 <script>
     export default {
         props: {
-            area: {
+            content: {
                 type: Object,
                 default: 0
             },
-            wrapper: {
+            container: {
                 type: Object,
                 default: 0
+            },
+            show: {
+                type: Boolean,
+                default: false
             },
             scrolling: {
                 type: Object,
@@ -28,17 +31,33 @@
             onChangePosition: {
                 type: Function,
                 default: () => {}
-            }
+            },
         },
         data() {
             return {
                 width: 0,
                 dragging: false,
-                start: 0
+                start: 0,
             }
         },
 
+        watch: {
+            'container.width'(val,old) {
+                if(val != old) this.calculateSize()
+            },
+        },
+
         methods: {
+            startDrag(e) {
+                e.preventDefault()
+                e.stopPropagation()
+
+                e = e.changedTouches ? e.changedTouches[0] : e
+
+                this.dragging = true
+                this.start = e.pageX
+            },
+
             onDrag(e) {
                 if (this.dragging) {
                     e.preventDefault()
@@ -47,7 +66,7 @@
                     e = e.changedTouches ? e.changedTouches[0] : e
 
                     let xMovement = e.pageX - this.start
-                    let xMovementPercentage = xMovement / this.wrapper.width * 100
+                    let xMovementPercentage = xMovement / this.container.width * 100
 
                     this.start = e.pageX
 
@@ -65,18 +84,18 @@
                 this.dragging = false
 
                 this.$parent.dragging = false
-            }
+            },
 
             jump(e) {
-                let isContainer = e.target === this.$els.container
-                if (isContainer) {
-                    let position = this.$els.scrollbar.getBoundingClientRect()
+                let isRailX = e.target === this.$els.scrollRailX
+                if (isRailX) {
+                    let position = this.$els.scrollSliderX.getBoundingClientRect()
 
                     // Calculate the horizontal Movement
                     let xMovement = e.pageX - position.left
 
                     let centerize = this.width / 2
-                    let xMovementPercentage = xMovement / this.wrapper.width * 100 - centerize
+                    let xMovementPercentage = xMovement / this.container.width * 100 - centerize
 
                     this.start = e.pageX
 
@@ -85,7 +104,7 @@
                     this.normalize(next)
                     this.onChangePosition(next, 'horizontal')
                 }
-            }
+            },
 
             normalize(next) {
                 let lowerEnd = 100 - this.width
@@ -95,7 +114,7 @@
             },
 
             calculateSize() {
-                this.width = this.wrapper.width / this.area.width * 100
+                this.width = this.container.width / this.content.width * 100
             }
         },
 
@@ -113,6 +132,6 @@
             document.removeEventListener("touchmove", this.onDrag)
             document.removeEventListener("mouseup", this.stopDrag)
             document.removeEventListener("touchend", this.stopDrag)
-        }
+        },
     }
 </script>

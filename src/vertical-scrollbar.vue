@@ -1,6 +1,6 @@
 <template>
     <div class="nice-bar-rail-y" @click="jump" v-el:scroll-rail-y></div>
-    <div class="nice-bar-slider-y" v-bind:style="{ 'height': height + '%', top: scrolling.v + '%' }" v-bind:class="{ 'fade-in': show, 'fade-out': !show }"
+    <div class="nice-bar-slider-y" v-bind:style="{ height: height + '%', top: scrolling.v + '%' }" v-bind:class="{ 'fade-in': show, 'fade-out': !show }"
          v-el:scroll-slider-y @touchstart="startDrag" @mousedown="startDrag">
     </div>
 </template>
@@ -31,15 +31,21 @@
             onChangePosition: {
                 type: Function,
                 default: () => {}
-            }
+            },
         },
 
         data() {
             return {
                 height: 0,
                 dragging: false,
-                start: 0
+                start: 0,
             }
+        },
+
+        watch: {
+            'container.height'(val,old) {
+                if (val != old) this.calculateSize()
+            },
         },
 
         methods: {
@@ -107,7 +113,7 @@
                     this.normalize(next)
                     this.onChangePosition(next, 'vertical')
                 }
-            }
+            },
         },
 
         ready() {

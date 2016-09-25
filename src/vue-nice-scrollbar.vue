@@ -1,6 +1,6 @@
 <template>
-    <div id="{{ ids }}" class="nice-bar" v-bind:class="{ 'theme-light': theme === 'light' , 'theme-drak': theme === 'dark' }" v-el:scroll-container>
-        <div class="" v-el:scroll-content v-bind:style="{ 'margin-top': top * -1 + 'px', 'margin-left': left * -1 + 'px' }" @wheel="scroll" @keyup.down="upDown" @keyup.up="upDown"
+    <div class="nice-bar" v-bind:class="[ theme==='dark' ? 'theme-dark' : 'theme-light', classes ? ' ' + classes : '']" v-el:scroll-container>
+        <div v-el:scroll-content v-bind:style="{ 'margin-top': top * -1 + 'px', 'margin-left': left * -1 + 'px' }" @wheel="scroll"
             @touchstart="startDrag" @touchmove="onDrag" @touchend="stopDrag">
             <slot></slot>
         </div>
@@ -8,18 +8,22 @@
                             v-bind:scrolling="{ v: vMovement }" v-bind:dragging-from-parent="dragging" v-bind:on-change-position="handleChangePosition"
                             v-bind:show="show">
         </vertical-scrollbar>
-     <!--   <div class="nice-bar-rail-y" v-if="verticalReady"></div>
-        <div class="nice-bar-slider-y" v-if="verticalReady" v-bind:style="{ 'height': sliderYHeight + 'px' }" v-bind:class="{ 'fade-in': show, 'fade-out': !show }" v-el: scroll-slider-y></div>
-        -->
+        <horizontal-scrollbar v-if="ready" v-bind:content="{ width: scrollContentWidth }" v-bind:container="{ width: scrollContainerWidth }"
+                            v-bind:scrolling="{ h: hMovement }" v-bind:dragging-from-parent="dragging" v-bind:on-change-position="handleChangePosition"
+                            v-bind:show="show">
+        </horizontal-scrollbar>
     </div>
 </template>
 
 <script>
     import verticalScrollbar from './vertical-scrollbar.vue'
+    import horizontalScrollbar from './horizontal-scrollbar.vue'
+
+    require('./less/vue-nice-scrollbar.less')
 
     export default {
         props: {
-            ids: {
+            classes: {
                 type: String,
                 default: ""
             },
@@ -30,7 +34,7 @@
             speed: {
                 type: Number,
                 default: 53
-            }
+            },
         },
 
         data() {
@@ -48,18 +52,18 @@
                 left: 0,
                 vMovement: 0,
                 hMovement: 0,
-                start: { y: 0, x: 0 }
+                start: { y: 0, x: 0 },
             }
         },
 
         components: {
-            verticalScrollbar
+            verticalScrollbar, horizontalScrollbar
         },
 
         methods: {
             calculateSize() {
-                let $scrollContainer = this.$els.scrollContainer
                 let $scrollContent = this.$els.scrollContent
+                let $scrollContainer = this.$els.scrollContainer
 
                 let scrollContainerStyle = window.getComputedStyle($scrollContainer, null)
 
@@ -97,7 +101,7 @@
                 let nextX = this.left + this.scrollX
 
                 let canScrollY = this.scrollContentHeight > this.scrollContainerHeight
-                let canScrollX = this.scrollContainerWidth > this.scrollContainerWidth
+                let canScrollX = this.scrollContentWidth > this.scrollContainerWidth
 
                 if (canScrollY && !shifted) {
                     this.normalizeVertical(nextY)
@@ -109,22 +113,6 @@
                     this.moveTheScrollbar()
                 }
             },
-
-            upDown(e) {
-                e.preventDefault()
-
-                let num = this.speed
-                this.scrollY = e.deltaY > 0 ? num : -(num)
-
-                let nextY = this.top + this.scrollY
-
-                let canScrollY = this.scrollContentHeight > this.scrollContainerHeight
-
-                if (canScrollY) {
-                    this.normalizeVertical(nextY)
-                    this.moveTheScrollbar()
-                }
-            }
 
             normalizeVertical(nextY) {
                 let lowerEnd = this.scrollContentHeight - this.scrollContainerHeight
@@ -195,7 +183,7 @@
                 let next = vScrollbar / 100 * (orientation == 'vertical' ? this.scrollContentHeight : this.scrollContentWidth)
                 if (orientation == 'vertical') this.normalizeVertical(next)
                 if (orientation == 'horizontal') this.normalizeHorizontal(next)
-            }
+            },
         },
 
         ready() {
