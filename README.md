@@ -16,27 +16,41 @@ npm install vue-nice-scrollbar --save
 ### Usage
 
 ``` html
-<link rel="stylesheet" href="node_modules/vue-nice-scrollbar/dist/vue-nice-scrollbar.css" />
-
-<script src="node_modules/vue-nice-scrollbar/dist/vue-nice-scrollbar.vue"></script>
-
-<style>
-  #demo {
-    height: 300px;
-  }
-</style>
-
-<div id="demo" v-nice-bar theme="light"></div>
-
+<template>
+    <vue-nice-scrollbar classes="my-scrollbar" v-bind:speed=100 v-bind:theme="light">
+        <div class="scroll-me">
+            //scroll-content
+        </div>
+    </vue-nice-scrollbar>
+</template>
 ```
 
 ```js
-  new Vue({
-    el: '#demo'
-  });
+  import vueNiceScrollbar from 'vue-nice-scrollbar'
+
+  export default {
+    components: { vueNiceScrollbar }
+  }
 ```
 
-### Theme
+### Props
+##### classes(String)
+
+```css
+/* container */
+.my-scrollbar{
+  width: 35%;
+  min-width: 300px;
+  max-height: 450px;
+}
+
+/* Content */
+.scroll-me{
+  min-width: 750px;
+}
+```
+
+##### Theme
 
   * light
   * dark
