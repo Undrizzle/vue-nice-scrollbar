@@ -323,7 +323,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: true
 	});
 	// <template>
-	//     <div class="nice-bar-rail-y" @click="jump" v-el:scroll-rail-y></div>
+	//     <div class="nice-bar-rail-y" v-if="height < 100" @click="jump" v-el:scroll-rail-y></div>
 	//     <div class="nice-bar-slider-y" v-bind:style="{ height: height + '%', top: scrolling.v + '%' }" v-bind:class="{ 'fade-in': show, 'fade-out': !show }"
 	//          v-el:scroll-slider-y @touchstart="startDrag" @mousedown="startDrag">
 	//     </div>
@@ -457,7 +457,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 4 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"nice-bar-rail-y\" @click=\"jump\" v-el:scroll-rail-y></div>\n<div class=\"nice-bar-slider-y\" v-bind:style=\"{ height: height + '%', top: scrolling.v + '%' }\" v-bind:class=\"{ 'fade-in': show, 'fade-out': !show }\"\n     v-el:scroll-slider-y @touchstart=\"startDrag\" @mousedown=\"startDrag\">\n</div>\n";
+	module.exports = "\n<div class=\"nice-bar-rail-y\" v-if=\"height < 100\" @click=\"jump\" v-el:scroll-rail-y></div>\n<div class=\"nice-bar-slider-y\" v-bind:style=\"{ height: height + '%', top: scrolling.v + '%' }\" v-bind:class=\"{ 'fade-in': show, 'fade-out': !show }\"\n     v-el:scroll-slider-y @touchstart=\"startDrag\" @mousedown=\"startDrag\">\n</div>\n";
 
 /***/ },
 /* 5 */
@@ -497,7 +497,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: true
 	});
 	// <template>
-	//     <div class="nice-bar-rail-x" @click="jump" v-el:scroll-rail-x></div>
+	//     <div class="nice-bar-rail-x" v-if="width < 100" @click="jump" v-el:scroll-rail-x></div>
 	//     <div class="nice-bar-slider-x" v-bind:style="{ 'width': width + '%', left: scrolling.h + '%' }" v-bind:class="{ 'fade-in': show, 'fade-out': !show }"
 	//          v-el:scroll-slider-x @touchstart="startDrag" @mousedown="startDrag">
 	//     </div>
@@ -633,7 +633,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 7 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"nice-bar-rail-x\" @click=\"jump\" v-el:scroll-rail-x></div>\n<div class=\"nice-bar-slider-x\" v-bind:style=\"{ 'width': width + '%', left: scrolling.h + '%' }\" v-bind:class=\"{ 'fade-in': show, 'fade-out': !show }\"\n     v-el:scroll-slider-x @touchstart=\"startDrag\" @mousedown=\"startDrag\">\n</div>\n";
+	module.exports = "\n<div class=\"nice-bar-rail-x\" v-if=\"width < 100\" @click=\"jump\" v-el:scroll-rail-x></div>\n<div class=\"nice-bar-slider-x\" v-bind:style=\"{ 'width': width + '%', left: scrolling.h + '%' }\" v-bind:class=\"{ 'fade-in': show, 'fade-out': !show }\"\n     v-el:scroll-slider-x @touchstart=\"startDrag\" @mousedown=\"startDrag\">\n</div>\n";
 
 /***/ },
 /* 8 */

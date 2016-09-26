@@ -1,5 +1,5 @@
 <template>
-    <div class="nice-bar-rail-y" @click="jump" v-el:scroll-rail-y></div>
+    <div class="nice-bar-rail-y" v-if="height < 100" @click="jump" v-el:scroll-rail-y></div>
     <div class="nice-bar-slider-y" v-bind:style="{ height: height + '%', top: scrolling.v + '%' }" v-bind:class="{ 'fade-in': show, 'fade-out': !show }"
          v-el:scroll-slider-y @touchstart="startDrag" @mousedown="startDrag">
     </div>
