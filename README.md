@@ -17,7 +17,7 @@ npm install vue-nice-scrollbar --save
 
 ``` html
 <template>
-    <vue-nice-scrollbar classes="my-scrollbar" v-bind:speed=100 v-bind:theme="light">
+    <vue-nice-scrollbar classes="my-scrollbar" v-bind:speed=100 theme="light">
         <div class="scroll-me">
             //scroll-content
         </div>
