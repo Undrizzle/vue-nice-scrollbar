@@ -1,6 +1,6 @@
 # vue-nice-scrollbar
 
-a nice scrollbar for vue.js
+a nice scrollbar for vue.js 2.0
 
 [![Build Status](https://travis-ci.org/Undrizzle/vue-nice-scrollbar.svg?branch=master)](https://travis-ci.org/undrizzle/vue-nice-scrollbar) [![npm](https://img.shields.io/npm/v/vue-nice-scrollbar.svg?style=flat-square)](https://www.npmjs.com/package/vue-nice-scrollbar) [![npm](https://img.shields.io/npm/dt/vue-nice-scrollbar.svg?style=flat-square)](https://www.npmjs.com/package/vue-nice-scrollbar) [![npm](https://img.shields.io/npm/l/vue-nice-scrollbar.svg?style=flat-square)](https://www.npmjs.com/package/vue-nice-scrollbar)
 

@@ -1,15 +1,19 @@
-var path = require('path');
+var path = require('path')
 
 module .exports = {
     entry: {
-        'vue-nice-scrollbar': path.join(__dirname, 'src/vue-nice-scrollbar.vue')
+        'vue-nice-scrollbar': path.join(__dirname, 'src/main')
     },
     output: {
         path: path.join(__dirname, 'dist'),
-        publicPath: '/',
-        library: 'VueNiceScrollbar',
-        libraryTarget: 'umd',
-        filename: "[name].js"
+        publicPath: '/dist/',
+        filename: "build.js"
+    },
+    resolveLoader: {
+        root: path.join(__dirname, 'node_modules')
+    },
+    resolve: {
+        alias: {vue: 'vue/dist/vue.js'}
     },
     module: {
         loaders: [
@@ -21,5 +25,27 @@ module .exports = {
     babel: {
         "presets": ["es2015"]
     },
-    plugins: []
-};
+    devServer: {
+        historyApiFallback: true,
+        noInfo: true
+    },
+    devtool: '#eval-source-map'
+}
+
+if (process.env.NODE_ENV === 'production') {
+    module.exports.devtool = '#source-map'
+    // http://vue-loader.vuejs.org/en/workflow/production.html
+    module.exports.plugins = (module.exports.plugins || []).concat([
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: '"production"'
+            }
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            }
+        })
+    ])
+}
+

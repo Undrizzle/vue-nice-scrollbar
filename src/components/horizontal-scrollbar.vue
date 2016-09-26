@@ -1,12 +1,15 @@
 <template>
-    <div class="nice-bar-rail-y" v-if="height < 100" @click="jump" v-el:scroll-rail-y></div>
-    <div class="nice-bar-slider-y" v-bind:style="{ height: height + '%', top: scrolling.v + '%' }" v-bind:class="{ 'fade-in': show, 'fade-out': !show }"
-         v-el:scroll-slider-y @touchstart="startDrag" @mousedown="startDrag">
+    <div>
+        <div class="nice-bar-rail-x" v-if="width < 100" @click="jump" ref="scrollRailX"></div>
+        <div class="nice-bar-slider-x" v-bind:style="{ 'width': width + '%', left: scrolling.h + '%' }" v-bind:class="{ 'fade-in': show, 'fade-out': !show }"
+             ref="scrollSliderX" @touchstart="startDrag" @mousedown="startDrag">
+        </div>
     </div>
 </template>
 
 <script>
     export default {
+        name:'horizontal-scrollbar',
         props: {
             content: {
                 type: Object,
@@ -16,13 +19,13 @@
                 type: Object,
                 default: 0
             },
-            scrolling: {
-                type: Object,
-                default: { v: 0, h: 0 }
-            },
             show: {
                 type: Boolean,
                 default: false
+            },
+            scrolling: {
+                type: Object,
+                default: { v: 0, h: 0 }
             },
             draggingFromParent: {
                 type: Boolean,
@@ -33,26 +36,21 @@
                 default: () => {}
             },
         },
-
         data() {
             return {
-                height: 0,
+                width: 0,
                 dragging: false,
                 start: 0,
             }
         },
 
         watch: {
-            'container.height'(val,old) {
-                if (val != old) this.calculateSize()
+            'container.width'(val,old) {
+                if(val != old) this.calculateSize()
             },
         },
 
         methods: {
-            calculateSize() {
-                this.height = this.container.height / this.content.height * 100
-            },
-
             startDrag(e) {
                 e.preventDefault()
                 e.stopPropagation()
@@ -60,7 +58,7 @@
                 e = e.changedTouches ? e.changedTouches[0] : e
 
                 this.dragging = true
-                this.start = e.pageY
+                this.start = e.pageX
             },
 
             onDrag(e) {
@@ -70,53 +68,60 @@
 
                     e = e.changedTouches ? e.changedTouches[0] : e
 
-                    let yMovement = e.pageY - this.start
-                    let yMovementPercentage = yMovement / this.container.height * 100
+                    let xMovement = e.pageX - this.start
+                    let xMovementPercentage = xMovement / this.container.width * 100
 
-                    this.start = e.pageY
+                    this.start = e.pageX
 
-                    let next = this.scrolling.v + yMovementPercentage
+                    let next = this.scrolling.h + xMovementPercentage
 
                     this.normalize(next)
 
                     this.$parent.dragging = true
 
-                    this.onChangePosition(next, 'vertical')
+                    this.onChangePosition(next, 'horizontal')
                 }
             },
 
             stopDrag(e) {
                 this.dragging = false
+
                 this.$parent.dragging = false
             },
 
-            normalize(next) {
-                let lowerEnd = 100 - this.height
-                if (next < 0) next = 0
-                if( next > lowerEnd) next = lowerEnd
-                this.scrolling.v = next
-            },
-
             jump(e) {
-                let isRailY = e.target === this.$els.scrollRailY
-                if (isRailY) {
-                    let position = this.$els.scrollSliderY.getBoundingClientRect()
+                let isRailX = e.target === this.$refs.scrollRailX
+                if (isRailX) {
+                    let position = this.$refs.scrollSliderX.getBoundingClientRect()
 
-                    let yMovement = e.pageY - position.top
-                    let centerize = this.height / 2
-                    let yMovementPercentage = yMovement / this.container.height * 100 - centerize
+                    // Calculate the horizontal Movement
+                    let xMovement = e.pageX - position.left
 
-                    this.start = e.pageY
+                    let centerize = this.width / 2
+                    let xMovementPercentage = xMovement / this.container.width * 100 - centerize
 
-                    let next = this.scrolling.v + yMovementPercentage
+                    this.start = e.pageX
+
+                    let next = this.scrolling.h + xMovementPercentage
 
                     this.normalize(next)
-                    this.onChangePosition(next, 'vertical')
+                    this.onChangePosition(next, 'horizontal')
                 }
             },
+
+            normalize(next) {
+                let lowerEnd = 100 - this.width
+                if(next < 0) next = 0
+                if(next > lowerEnd) next = lowerEnd
+                this.scrolling.h = next
+            },
+
+            calculateSize() {
+                this.width = this.container.width / this.content.width * 100
+            }
         },
 
-        ready() {
+        mounted() {
             this.calculateSize()
 
             document.addEventListener("mousemove", this.onDrag)
@@ -130,6 +135,6 @@
             document.removeEventListener("touchmove", this.onDrag)
             document.removeEventListener("mouseup", this.stopDrag)
             document.removeEventListener("touchend", this.stopDrag)
-        }
+        },
     }
 </script>

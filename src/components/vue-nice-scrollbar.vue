@@ -1,6 +1,6 @@
 <template>
-    <div class="nice-bar" v-bind:class="[ theme==='dark' ? 'theme-dark' : 'theme-light', classes ? ' ' + classes : '']" v-el:scroll-container>
-        <div v-el:scroll-content v-bind:style="{ 'margin-top': top * -1 + 'px', 'margin-left': left * -1 + 'px' }" @wheel="scroll"
+    <div class="nice-bar" v-bind:class="[ theme==='dark' ? 'theme-dark' : 'theme-light', classes ? ' ' + classes : '']" ref="scrollContainer">
+        <div ref="scrollContent" v-bind:style="{ 'margin-top': top * -1 + 'px', 'margin-left': left * -1 + 'px' }" @wheel="scroll"
             @touchstart="startDrag" @touchmove="onDrag" @touchend="stopDrag">
             <slot></slot>
         </div>
@@ -19,9 +19,10 @@
     import verticalScrollbar from './vertical-scrollbar.vue'
     import horizontalScrollbar from './horizontal-scrollbar.vue'
 
-    require('./less/vue-nice-scrollbar.less')
+    require('../less/vue-nice-scrollbar.less')
 
     export default {
+        name: 'vue-nice-scrollbar',
         props: {
             classes: {
                 type: String,
@@ -62,8 +63,8 @@
 
         methods: {
             calculateSize() {
-                let $scrollContent = this.$els.scrollContent
-                let $scrollContainer = this.$els.scrollContainer
+                let $scrollContent = this.$refs.scrollContent
+                let $scrollContainer = this.$refs.scrollContainer
 
                 let scrollContainerStyle = window.getComputedStyle($scrollContainer, null)
 
@@ -186,21 +187,21 @@
             },
         },
 
-        ready() {
+        mounted() {
             this.calculateSize()
 
             window.addEventListener('resize', this.calculateSize)
 
             if (this.ready) {
-                this.$els.scrollContainer.addEventListener('mouseenter', this.showSlider)
-                this.$els.scrollContainer.addEventListener('mouseleave', this.hideSlider)
+                this.$refs.scrollContainer.addEventListener('mouseenter', this.showSlider)
+                this.$refs.scrollContainer.addEventListener('mouseleave', this.hideSlider)
             }
         },
 
         beforeDestroy() {
             window.removeEventListener('resize', this.calculateSize)
-            this.$els.scrollContainer.removeEventListener('mouseenter', this.showSlider)
-            this.$els.scrollContainer.removeEventListener('mouseleave', this.hideSlider)
+            this.$refs.scrollContainer.removeEventListener('mouseenter', this.showSlider)
+            this.$refs.scrollContainer.removeEventListener('mouseleave', this.hideSlider)
         }
     }
 </script>
