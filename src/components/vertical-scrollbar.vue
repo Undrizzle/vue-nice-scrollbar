@@ -1,8 +1,7 @@
 <template>
-    <div>
-        <div class="nice-bar-rail-y" v-if="height < 100" @click="jump" ref="scrollRailY"></div>
+    <div class="nice-bar-rail-y" v-if="height < 100" @click="jump" ref="scrollRail">
         <div class="nice-bar-slider-y" v-bind:style="{ height: height + '%', top: scrolling.v + '%' }" v-bind:class="{ 'fade-in': show, 'fade-out': !show }"
-             ref="scrollSliderY" @touchstart="startDrag" @mousedown="startDrag">
+             ref="scrollSlider" @touchstart="startDrag" @mousedown="startDrag">
         </div>
     </div>
 </template>
@@ -80,11 +79,11 @@
 
                     let next = this.scrolling.v + yMovementPercentage
 
-                    this.normalize(next)
-
                     this.$parent.dragging = true
 
                     this.onChangePosition(next, 'vertical')
+
+                    this.normalize()
                 }
             },
 
@@ -93,19 +92,16 @@
                 this.$parent.dragging = false
             },
 
-            normalize(next) {
-                let lowerEnd = 100 - this.height
-                if (next < 0) next = 0
-                if( next > lowerEnd) next = lowerEnd
-                this.scrolling.v = next
+            normalize() {
+                this.$emit('vertical')
             },
 
             jump(e) {
-                let isRailY = e.target === this.$refs.scrollRailY
-                if (isRailY) {
-                    let position = this.$refs.scrollSliderY.getBoundingClientRect()
-
+                let isRail = e.target === this.$refs.scrollRail
+                if (isRail) {
+                    let position = this.$refs.scrollSlider.getBoundingClientRect()
                     let yMovement = e.pageY - position.top
+
                     let centerize = this.height / 2
                     let yMovementPercentage = yMovement / this.container.height * 100 - centerize
 
@@ -113,8 +109,8 @@
 
                     let next = this.scrolling.v + yMovementPercentage
 
-                    this.normalize(next)
                     this.onChangePosition(next, 'vertical')
+                    this.normalize()
                 }
             },
         },

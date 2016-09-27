@@ -75,11 +75,11 @@
 
                     let next = this.scrolling.h + xMovementPercentage
 
-                    this.normalize(next)
-
                     this.$parent.dragging = true
 
                     this.onChangePosition(next, 'horizontal')
+
+                    this.normalize()
                 }
             },
 
@@ -104,16 +104,13 @@
 
                     let next = this.scrolling.h + xMovementPercentage
 
-                    this.normalize(next)
                     this.onChangePosition(next, 'horizontal')
+                    this.normalize()
                 }
             },
 
-            normalize(next) {
-                let lowerEnd = 100 - this.width
-                if(next < 0) next = 0
-                if(next > lowerEnd) next = lowerEnd
-                this.scrolling.h = next
+            normalize() {
+                this.$emit('horizontal')
             },
 
             calculateSize() {
