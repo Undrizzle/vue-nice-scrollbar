@@ -20,7 +20,7 @@ module .exports = {
         loaders: [
             {test: /\.js$/, loader: 'babel', exclude: /node_modules/},
             {test: /\.vue$/, loader: 'vue'},
-            {test: /\.less$/, loader: "style!css!less"}
+            {test: /\.css$/, loader: "style!css"}
         ]
     },
     babel: {

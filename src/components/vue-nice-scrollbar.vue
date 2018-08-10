@@ -19,8 +19,6 @@
     import verticalScrollbar from './vertical-scrollbar.vue'
     import horizontalScrollbar from './horizontal-scrollbar.vue'
 
-    require('../less/vue-nice-scrollbar.less')
-
     export default {
         name: 'vue-nice-scrollbar',
         props: {
@@ -205,3 +203,37 @@
         }
     }
 </script>
+
+<style>
+    .nice-bar {
+        overflow: hidden;
+        position: relative;
+        margin: 0 auto;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadeOut {
+        from {
+            opacity: 1;
+        }
+        to {
+            opacity: 0;
+        }
+    }
+
+    .fade-in {
+        animation-name: fadeIn;
+    }
+
+    .fade-out {
+        animation-name: faadeOut;
+    }
+</style>

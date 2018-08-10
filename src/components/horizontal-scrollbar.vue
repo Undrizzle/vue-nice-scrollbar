@@ -135,3 +135,29 @@
         },
     }
 </script>
+
+<style>
+    .nice-bar-rail-x {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 6px;
+        width: 100%;
+        z-index: 100000;
+    }
+
+    .nice-bar-slider-x {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 6px;
+        z-index: 100001;
+        opacity: 0;
+        animation-duration: 1s;
+        animation-fill-mode: both;
+    }
+
+    .theme-light .nice-bar-slider-x {
+        background: #aaa;
+    }
+</style>

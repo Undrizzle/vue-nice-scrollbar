@@ -36,7 +36,7 @@
     }
 </script>
 
-<style lang="less">
+<style>
     h1 {
         text-align: center;
     }

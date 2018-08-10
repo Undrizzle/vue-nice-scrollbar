@@ -132,3 +132,33 @@
         }
     }
 </script>
+
+<style>
+    .nice-bar-rail-y {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 6px;
+        height: 100%;
+        z-index: 100000;
+    }
+
+    .nice-bar-slider-y {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 6px;
+        z-index: 100001;
+        opacity: 0;
+        animation-duration: 1s;
+        animation-fill-mode: both;
+    }
+
+    .theme-light .nice-bar-slider-y {
+        background: #aaa;
+    }
+
+    .theme-dark .nice-bar-slider-y {
+        background: #222;
+    }
+</style>

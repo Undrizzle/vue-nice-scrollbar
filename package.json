@@ -1,6 +1,6 @@
 {
   "name": "vue-nice-scrollbar",
-  "version": "0.1.4",
+  "version": "1.0.0",
   "description": "a nice scrollbar for vue.js",
   "repository": {
     "type": "git",
@@ -26,8 +26,6 @@
     "babel-runtime": "^6.11.6",
     "cross-env": "^3.0.0",
     "css-loader": "^0.23.1",
-    "less": "^2.7.1",
-    "less-loader": "^2.2.3",
     "style-loader": "^0.13.1",
     "vue-hot-reload-api": "^2.0.6",
     "vue-html-loader": "^1.2.3",
