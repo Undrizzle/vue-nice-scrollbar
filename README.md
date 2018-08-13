@@ -15,6 +15,13 @@ npm install vue-nice-scrollbar --save
 
 ### Usage
 
+```js
+  import Vue from 'vue'
+  import vueNiceScrollbar from 'vue-nice-scrollbar'
+
+  Vue.use(vueNiceScrollbar)
+```
+
 ``` html
 <template>
     <vue-nice-scrollbar classes="my-scrollbar" v-bind:speed=100 theme="light">
@@ -23,14 +30,6 @@ npm install vue-nice-scrollbar --save
         </div>
     </vue-nice-scrollbar>
 </template>
-```
-
-```js
-  import vueNiceScrollbar from 'vue-nice-scrollbar'
-
-  export default {
-    components: { vueNiceScrollbar }
-  }
 ```
 
 ### Props
